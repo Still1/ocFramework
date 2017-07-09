@@ -10,7 +10,9 @@
         <artifactId>oc-core</artifactId>
         <packaging>jar</packaging>
 
-        <name>oc-core</name>
+        <name>${project.artifactId}</name>
+        
+        
 
         <properties>
             <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
