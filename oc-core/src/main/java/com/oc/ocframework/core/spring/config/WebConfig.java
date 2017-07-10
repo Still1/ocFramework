@@ -8,6 +8,7 @@ import org.springframework.context.annotation.FilterType;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.spring4.SpringTemplateEngine;
@@ -50,5 +51,11 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		templateResolver.setSuffix(".html");
 		templateResolver.setTemplateMode("HTML5");
 		return templateResolver;
+	}
+
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/resource/template/**").addResourceLocations("classpath:/template/");
+		registry.addResourceHandler("/resource/common/**").addResourceLocations("classpath:/common/");
 	}
 }
