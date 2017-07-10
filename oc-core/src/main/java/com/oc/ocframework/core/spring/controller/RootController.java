@@ -5,9 +5,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class HomeController {
+public class RootController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String index() {
-		return "index";
+	public String root() {
+		return "basic/signIn";
 	}
 }
