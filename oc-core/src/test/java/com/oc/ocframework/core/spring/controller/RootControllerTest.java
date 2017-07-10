@@ -6,11 +6,11 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-public class HomeControllerTest {
+public class RootControllerTest {
 	@Test
-	public void testIndex() throws Exception {
-		HomeController homeController = new HomeController();
+	public void testRoot() throws Exception {
+		RootController homeController = new RootController();
 		MockMvc mockMvc = MockMvcBuilders.standaloneSetup(homeController).build();
-		mockMvc.perform(MockMvcRequestBuilders.get("/")).andExpect(MockMvcResultMatchers.view().name("index"));
+		mockMvc.perform(MockMvcRequestBuilders.get("/")).andExpect(MockMvcResultMatchers.view().name("basic/signIn"));
 	}
 }
