@@ -1,0 +1,40 @@
+body {
+    background: #333;
+    color: #999;
+    font:normal 62.5% "Helvetica Neue", helvetica, sans-serif;
+}
+
+.logo {
+    width: 200px;
+    margin: 0 auto;
+    display: block;
+}
+
+.logoContainer {
+    padding-top: 60px;
+}
+h1 {
+    width:600px;
+    margin: 10px auto;
+    display: block;
+    height: 49px;
+}
+
+h2 {
+    width: 600px;
+    text-align: center;
+    font: normal 2.8em "Helvetica Neue", helvetica, sans-serif;
+    margin: 0 auto;
+    display: block;
+    height: 32px;
+}
+
+.formContainer {
+    width:300px;
+    padding-top: 20px;
+}
+
+#submitButton {
+    position: relative;
+    float: right;
+}
