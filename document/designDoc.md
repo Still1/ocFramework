@@ -16,6 +16,5 @@
         * com.oc.ocframework.core.web.config  Servlet容器配置类
         * com.oc.ocframework.core.spring.config  SpringMVC应用上下文配置类
         * com.oc.ocframework.core.spring.controller  SpringMVC controller类
-
         * resources/common/ 公共页面资源
         * resources/template/ 页面模板资源
