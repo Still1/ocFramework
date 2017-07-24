@@ -12,6 +12,13 @@
 
         <name>${project.artifactId}</name>
         
+        <url>http://ocframework.oc.com/core</url>
+        <licenses>
+            <license>
+                <name>GNU General Public License v3.0</name>
+            </license>
+        </licenses>
+        
         <properties>
             <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         </properties>
@@ -71,6 +78,9 @@
                     <configuration>
                         <scanIntervalSeconds>5</scanIntervalSeconds>
                     </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-project-info-reports-plugin</artifactId>
                 </plugin>
             </plugins>
         </build>
