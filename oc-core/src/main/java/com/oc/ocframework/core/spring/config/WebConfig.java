@@ -25,11 +25,22 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 @ComponentScan(basePackages = "com.oc", includeFilters = @Filter(type = FilterType.ASPECTJ, pattern = "com.oc..spring.controller..*"))
 public class WebConfig extends WebMvcConfigurerAdapter {
 
+	/**
+	 * 配置Spring MVC静态资源处理
+	 */
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 		configurer.enable();
 	}
 	
+	/**
+	 * 声明视图解析器bean
+	 * 
+	 * @param templateEngine 
+	 * 		  SpringTemplateEngine模板引擎bean
+	 * 
+	 * @return ThymeleafViewResolver视图解析器
+	 */
 	@Bean
 	public ViewResolver viewResolver(TemplateEngine templateEngine) {
 		ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
@@ -37,6 +48,14 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		return viewResolver;
 	}
 	
+	/**
+	 * 声明模板引擎bean
+	 * 
+	 * @param templateResolver
+	 * 		  SpringResourceTemplateResolver模板解析器bean
+	 * 
+	 * @return SpringTemplateEngine模板引擎
+	 */
 	@Bean
 	public TemplateEngine templateEngine(ITemplateResolver templateResolver) {
 		TemplateEngine templateEngine = new SpringTemplateEngine();
@@ -44,6 +63,11 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		return templateEngine;
 	}
 	
+	/**
+	 * 声明模板解析器bean
+	 * 
+	 * @return SpringResourceTemplateResolver模板解析器
+	 */
 	@Bean
 	public ITemplateResolver templateResolver() {
 		SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
@@ -53,6 +77,9 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		return templateResolver;
 	}
 
+	/**
+	 * 配置Spring MVC静态资源位置及其路径映射
+	 */
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/resource/template/**").addResourceLocations("classpath:/template/");
