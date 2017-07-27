@@ -13,6 +13,6 @@ public class RootControllerTest {
 	public void testRoot() throws Exception {
 		RootController homeController = new RootController();
 		MockMvc mockMvc = MockMvcBuilders.standaloneSetup(homeController).build();
-		mockMvc.perform(MockMvcRequestBuilders.get("/")).andExpect(MockMvcResultMatchers.view().name("basic/signIn"));
+		mockMvc.perform(MockMvcRequestBuilders.get("/")).andExpect(MockMvcResultMatchers.view().name("basic/signIn/signIn"));
 	}
 }

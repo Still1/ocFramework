@@ -10,6 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class RootController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String root() {
-		return "basic/signIn";
+		return "basic/signIn/signIn";
 	}
 }
