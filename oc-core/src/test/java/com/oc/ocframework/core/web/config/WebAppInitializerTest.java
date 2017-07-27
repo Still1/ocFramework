@@ -8,7 +8,7 @@ import com.oc.ocframework.core.spring.config.WebConfig;
 
 import junit.framework.TestCase;
 /**
- * Spring MVC DispatcerServlet配置类
+ * Spring MVC DispatcerServlet配置测试类
  */
 public class WebAppInitializerTest {
 	
