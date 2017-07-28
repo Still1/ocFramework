@@ -8,8 +8,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Controller
 public class RootController {
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String root() {
+	@RequestMapping(value = "/signIn", method = RequestMethod.GET)
+	public String signIn() {
 		return "basic/signIn/signIn";
+	}
+	
+	@RequestMapping(value = "/home", method = RequestMethod.GET)
+	public String home() {
+		return "basic/home/home";
 	}
 }
