@@ -1,10 +1,15 @@
 package com.oc.ocframework.core.spring.config;
 
+import java.nio.charset.Charset;
+import java.util.List;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -45,6 +50,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	public ViewResolver viewResolver(TemplateEngine templateEngine) {
 		ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
 		viewResolver.setTemplateEngine(templateEngine);
+		viewResolver.setCharacterEncoding("UTF-8");
 		return viewResolver;
 	}
 	
@@ -84,5 +90,12 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/resource/template/**").addResourceLocations("classpath:/template/");
 		registry.addResourceHandler("/resource/common/**").addResourceLocations("classpath:/common/");
+	}
+
+	@Override
+	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+		Charset utf8Charset = Charset.forName("UTF-8");
+		StringHttpMessageConverter converter = new StringHttpMessageConverter(utf8Charset);
+		converters.add(converter);
 	}
 }
