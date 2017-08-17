@@ -92,6 +92,9 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		registry.addResourceHandler("/resource/common/**").addResourceLocations("classpath:/common/");
 	}
 
+	/**
+	 * 配置返回字符串的编码类型，主要影响AJAX请求返回的内容
+	 */
 	@Override
 	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
 		Charset utf8Charset = Charset.forName("UTF-8");

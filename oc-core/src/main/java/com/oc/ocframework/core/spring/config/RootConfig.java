@@ -16,5 +16,4 @@ import org.springframework.context.annotation.FilterType;
 		@Filter(type = FilterType.ASPECTJ, pattern = "com.oc..spring.component..*")
 	})
 public class RootConfig {
-
 }
