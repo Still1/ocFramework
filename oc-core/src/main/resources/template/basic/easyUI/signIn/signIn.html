@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>OcFramework - Sign In</title>
+<link rel="stylesheet" href="../../common/css/easyUI/easyui.css" th:href="@{/resource/common/css/easyUI/easyui.css}">
+<link rel="stylesheet" href="../../common/css/easyUI/icon.css" th:href="@{/resource/common/css/easyUI/icon.css}">
+<link rel="stylesheet" href="../../common/css/ocFramework/ocFramework.css" th:href="@{/resource/common/css/ocFramework/ocFramework.css}">
+<link rel="stylesheet" href="signIn.css" th:href="@{/resource/template/basic/easyUI/signIn/signIn.css}">
+</head>
+<body>
+    <h1>Sign In</h1>
+    <div style="margin: 20px 0;"></div>
+    <div class="center-panel">
+        <div class="easyui-panel" title="Sign In" style="width: 100%; max-width: 400px; padding: 30px 60px;">
+            <form id="ff" method="post">
+                <div style="margin-bottom: 20px">
+                    <input class="easyui-textbox" name="username"
+                        style="width: 100%"
+                        data-options="label:'Username:',required:true">
+                </div>
+                <div style="margin-bottom: 20px">
+                    <input class="easyui-passwordbox" name="password"
+                        style="width: 100%"
+                        data-options="label:'Password:',required:true">
+                </div>
+            </form>
+            <div style="text-align: center; padding: 5px 0">
+                <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()" style="width: 80px">Sign In</a>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="../../common/js/jquery/jquery-3.1.1.js" th:src="@{/resource/common/js/jquery/jquery-3.1.1.js}"></script>
+    <script type="text/javascript" src="../../common/js/easyUI/jquery.easyui.min.js" th:src="@{/resource/common/js/easyUI/jquery.easyui.min.js}"></script>
+    <script type="text/javascript" src="../../common/js/easyUI/easyui-lang-zh_CN.js" th:src="@{/resource/common/js/easyUI/easyui-lang-zh_CN.js}"></script>
+</body>
+</html>

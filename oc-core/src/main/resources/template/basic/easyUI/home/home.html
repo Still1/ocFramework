@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>OcFramework - Home</title>
+<link rel="stylesheet" href="../../common/css/easyUI/easyui.css" th:href="@{/resource/common/css/easyUI/easyui.css}">
+<link rel="stylesheet" href="../../common/css/easyUI/icon.css" th:href="@{/resource/common/css/easyUI/icon.css}">
+<link rel="stylesheet" href="../../common/css/ocFramework/ocFramework.css" th:href="@{/resource/common/css/ocFramework/ocFramework.css}">
+<link rel="stylesheet" href="home.css" th:href="@{/resource/template/basic/easyUI/home/home.css}">
+</head>
+
+<body class="easyui-layout">
+    <div data-options="region:'north',title:'North Title',split:true" style="height:100px;"></div>
+    <div data-options="region:'south',title:'South Title',split:true" style="height:100px;"></div>
+    <div data-options="region:'east',title:'East',split:true" style="width:100px;"></div>
+    <div data-options="region:'west',title:'West',split:true" style="width:100px;"></div>
+    <div data-options="region:'center',title:'center title'" style="padding:5px;background:#eee;"></div>
+    
+    <script type="text/javascript" src="../../common/js/jquery/jquery-3.1.1.js" th:src="@{/resource/common/js/jquery/jquery-3.1.1.js}"></script>
+    <script type="text/javascript" src="../../common/js/easyUI/jquery.easyui.min.js" th:src="@{/resource/common/js/easyUI/jquery.easyui.min.js}"></script>
+    <script type="text/javascript" src="../../common/js/easyUI/easyui-lang-zh_CN.js" th:src="@{/resource/common/js/easyUI/easyui-lang-zh_CN.js}"></script>
+</body>
+</html>
