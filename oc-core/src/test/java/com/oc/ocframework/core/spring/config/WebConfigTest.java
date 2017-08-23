@@ -1,6 +1,8 @@
 package com.oc.ocframework.core.spring.config;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -10,6 +12,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
+import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -109,5 +112,12 @@ public class WebConfigTest {
 	private void testBeanAnnotation(Method method) {
 		Bean bean = method.getAnnotation(Bean.class);
 		TestCase.assertNotNull(bean);
+	}
+	
+    @Test
+	public void testConfigureMessageConverters() {
+	    List<HttpMessageConverter<?>> converters = new ArrayList<>();
+	    WebConfigTest.webConfig.configureMessageConverters(converters);
+	    TestCase.assertTrue(converters.size() > 0);
 	}
 }

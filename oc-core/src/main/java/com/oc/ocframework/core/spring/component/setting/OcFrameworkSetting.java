@@ -8,6 +8,9 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
+/**
+ * ocFramework系统配置类
+ */
 @Component
 public class OcFrameworkSetting extends Properties {
 
