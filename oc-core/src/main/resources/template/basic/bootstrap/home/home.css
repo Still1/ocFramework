@@ -129,3 +129,8 @@ body {
     position: relative;
     float: right;
 }
+
+.logo-image {
+	padding:15px;
+	height:25px;
+}
