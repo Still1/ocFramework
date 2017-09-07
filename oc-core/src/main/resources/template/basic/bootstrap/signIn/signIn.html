@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OcFramework - Sign In</title>
+    <link rel="icon" href="../../../../common/image/favicon.ico" th:href="@{/resource/common/image/favicon.ico}">
+    <link rel="stylesheet" href="../../../../common/css/tether/tether.css" th:href="@{/resource/common/css/tether/tether.css}">
+    <link rel="stylesheet" href="../../../../common/css/bootstrap/bootstrap.css" th:href="@{/resource/common/css/bootstrap/bootstrap.css}">
+   	<link rel="stylesheet" href="../../../../common/css/ocFramework/ocFramework.css" th:href="@{/resource/common/css/ocFramework/ocFramework.css}">
+    <link rel="stylesheet" href="../../../../common/css/ocFramework/ocFramework-bootstrap.css" th:href="@{/resource/common/css/ocFramework/ocFramework-bootstrap.css}">
+    <link rel="stylesheet" href="signIn.css" th:href="@{/resource/template/basic/bootstrap/signIn/signIn.css}">
+</head>
+<body>
+    <div class="container logoContainer">
+        <h1>
+            <img src="../../../../common/image/logo.png" alt="logo" class="logo" th:src="@{/resource/common/image/logo.png}">
+        </h1>
+        <h2>
+            Sign in
+        </h2>
+        <div class="container formContainer">
+            <form role="form">
+                <div class="form-group">
+                    <label for="username">Username or Email</label>
+                    <input type="email" class="form-control" id="username" placeholder="Enter email">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" placeholder="Password">
+                </div>
+                <button id="submitButton" type="submit" class="btn btn-primary">Sign In</button>
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript" src="../../../../common/js/jquery/jquery-3.1.1.js" th:src="@{/resource/common/js/jquery/jquery-3.1.1.js}" ></script>
+    <script type="text/javascript" src="../../../../common/js/tether/tether.js" th:src="@{/resource/common/js/tether/tether.js}" ></script>
+    <script type="text/javascript" src="../../../../common/js/bootstrap/bootstrap.js" th:src="@{/resource/common/js/bootstrap/bootstrap.js}" ></script>
+</body>
+</html>

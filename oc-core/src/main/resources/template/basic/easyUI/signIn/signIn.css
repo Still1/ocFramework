@@ -1,0 +1,10 @@
+@charset "UTF-8";
+
+h1 {
+	text-align : center;
+}
+
+.center-panel { 
+	margin : 0 auto;
+	width : 400px;
+}
