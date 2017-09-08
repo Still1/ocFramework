@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class RootController implements InitializingBean {
 	
+    //XXX 读取配置应该转移到模板解析器
     @Autowired
     @Qualifier("ocFrameworkSetting")
     private Properties ocFrameworkSetting;

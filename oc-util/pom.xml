@@ -7,7 +7,7 @@
             <version>0.1-SNAPSHOT</version>
         </parent>
 
-        <artifactId>oc-data</artifactId>
+        <artifactId>oc-util</artifactId>
         <packaging>jar</packaging>
 
         <name>${project.artifactId}</name>
