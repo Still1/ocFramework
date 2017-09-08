@@ -25,6 +25,16 @@
 
         <dependencies>
             <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>oc-data</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>oc-util</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
             </dependency>
@@ -60,11 +70,20 @@
                 <version>4.3.8.RELEASE</version>
                 <scope>test</scope>
             </dependency>
-            
             <dependency>
                 <groupId>org.aspectj</groupId>
                 <artifactId>aspectjweaver</artifactId>
                 <version>1.8.10</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-web</artifactId>
+                <version>4.2.3.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-config</artifactId>
+                <version>4.2.3.RELEASE</version>
             </dependency>
         </dependencies>
         <build>
