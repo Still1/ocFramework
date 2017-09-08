@@ -77,6 +77,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	@Bean
 	public ITemplateResolver templateResolver() {
 		SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
+		//XXX 配置化
 		templateResolver.setPrefix("classpath:/template/");
 		templateResolver.setSuffix(".html");
 		templateResolver.setTemplateMode("HTML5");
@@ -88,7 +89,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	 */
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/resource/template/**").addResourceLocations("classpath:/template/");
+		//XXX 配置化
+	    registry.addResourceHandler("/resource/template/**").addResourceLocations("classpath:/template/");
 		registry.addResourceHandler("/resource/common/**").addResourceLocations("classpath:/common/");
 	}
 
