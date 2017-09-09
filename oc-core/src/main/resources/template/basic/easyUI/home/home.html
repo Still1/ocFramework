@@ -38,7 +38,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>001</td><td>name1</td><td>2323</td>
+                    <td>001</td><td>name1</td><td th:text="${pageContext}"></td>
                 </tr>
                 <tr>
                     <td>002</td><td>name2</td><td>4612</td>
@@ -50,5 +50,8 @@
     <script type="text/javascript" src="../../common/js/jquery/jquery-3.1.1.js" th:src="@{/resource/common/js/jquery/jquery-3.1.1.js}"></script>
     <script type="text/javascript" src="../../common/js/easyUI/jquery.easyui.min.js" th:src="@{/resource/common/js/easyUI/jquery.easyui.min.js}"></script>
     <script type="text/javascript" src="../../common/js/easyUI/easyui-lang-zh_CN.js" th:src="@{/resource/common/js/easyUI/easyui-lang-zh_CN.js}"></script>
+    <script type="text/javascript" th:inline="javascript">
+    	window.pageContext = /*[[${pageContext}]]*/ undefined;
+    </script>
 </body>
 </html>

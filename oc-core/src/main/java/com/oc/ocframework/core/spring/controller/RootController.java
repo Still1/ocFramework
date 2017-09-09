@@ -1,11 +1,16 @@
 package com.oc.ocframework.core.spring.controller;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 /**
@@ -27,8 +32,18 @@ public class RootController implements InitializingBean {
 	}
 	
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public String home() {
+	public String home(HttpServletRequest request, Model model) {
+	    this.handlePageContext(request, model);
 	    return "basic/" + ocFrameworkUI + "/home/home";
+	}
+	
+	private void handlePageContext(HttpServletRequest request, Model model) {
+	    String requestURI = request.getRequestURI();
+	    String contextPath = request.getContextPath();
+        Map<String, Object> pageContext = new HashMap<String, Object>();
+        pageContext.put("requestURI", requestURI);
+        pageContext.put("contextPath", contextPath);
+        model.addAttribute("pageContext", pageContext);
 	}
 
     public Properties getOcFrameworkSetting() {
