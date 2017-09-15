@@ -26,7 +26,7 @@ public class RootController implements InitializingBean {
     
     private String ocFrameworkUI;
     
-    @RequestMapping(value = "/signIn", method = RequestMethod.GET)
+    @RequestMapping(value = {"/signIn", "/"}, method = RequestMethod.GET)
 	public String signIn() {
         return "basic/" + ocFrameworkUI + "/signIn/signIn";
 	}
