@@ -7,4 +7,5 @@ public interface GenericDao {
     public <T> T findObjectById(Class<T> ObjectClass, Integer id);
     
     public List<Map<String, Object>> findListOfMapBySql(String sql, Object... args);
+    public List<Map<String, Object>> findListOfMapBySql(String sql);
 }

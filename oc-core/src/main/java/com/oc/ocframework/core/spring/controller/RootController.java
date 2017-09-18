@@ -1,6 +1,7 @@
 package com.oc.ocframework.core.spring.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.oc.ocframework.core.spring.service.HomeService;
 /**
  *	Spring MVC 应用根目录Controller类
  */
@@ -24,6 +27,9 @@ public class RootController implements InitializingBean {
     @Qualifier("ocFrameworkSetting")
     private Properties ocFrameworkSetting;
     
+    @Autowired
+    private HomeService homeService;
+    
     private String ocFrameworkUI;
     
     @RequestMapping(value = {"/signIn", "/"}, method = RequestMethod.GET)
@@ -34,6 +40,8 @@ public class RootController implements InitializingBean {
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home(HttpServletRequest request, Model model) {
 	    this.handlePageContext(request, model);
+	    List<Map<String, Object>> menus = this.homeService.getMenus();
+	    model.addAttribute("menus", menus);
 	    return "basic/" + ocFrameworkUI + "/home/home";
 	}
 	

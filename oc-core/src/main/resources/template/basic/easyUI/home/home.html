@@ -16,15 +16,9 @@
     </div>
     <div data-options="region:'west'" class="west-layout">
         <ul id="menuTree" class="easyui-tree">
-            <li><span>小书库</span></li>
-            <li><span>小物件</span></li>
-            <li><span>小未来</span></li>
-            <li><span>小玩乐</span></li>
-            <li><span>小留言</span></li>
-            <li><span>小生活</span></li>
-            <li><span>小影库</span></li>
-            <li><span>小技能</span></li>
-            <li><span>小用户</span></li>
+            <li th:each="menu : ${menus}">
+                <span th:text="${menu.menu_name}">小书库</span>
+            </li>
         </ul>
     </div>
     <div data-options="region:'center'" class="center-layout">
@@ -38,7 +32,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>001</td><td>name1</td><td th:text="${pageContext}"></td>
+                    <td>001</td><td>name1</td><td>3333</td>
                 </tr>
                 <tr>
                     <td>002</td><td>name2</td><td>4612</td>

@@ -15,4 +15,9 @@ public abstract class AbstractGenericDao implements GenericDao {
     public List<Map<String, Object>> findListOfMapBySql(String sql, Object... args) {
         return jdbcOperations.queryForList(sql, args);
     }
+
+    @Override
+    public List<Map<String, Object>> findListOfMapBySql(String sql) {
+        return jdbcOperations.queryForList(sql);
+    }
 }

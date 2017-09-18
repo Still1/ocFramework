@@ -17,8 +17,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     //XXX SQL语句配置化
-    public static final String QUERY_USER_SQL = "select username, password, enabled from t_users where username = ?";
-    public static final String QUERY_AUTHORITY_SQL = "select username, authority from t_authorities inner join t_users on t_authorities.user_id = t_users.id where username = ?";
+    public static final String QUERY_USER_SQL = "select username, password, enabled from t_user where username = ?";
+    public static final String QUERY_AUTHORITY_SQL = "select username, authority from t_authority inner join t_user on t_authority.user_id = t_user.id where username = ?";
     
     @Autowired
     private DataSource dataSource;
