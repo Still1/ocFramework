@@ -6,11 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.oc.ocframework.data.repository.GenericDao;
+import com.oc.ocframework.data.repository.AbstractGenericDao;
 
 @Repository
 @Transactional
-public class HibernateGenericDao implements GenericDao {
+public class HibernateGenericDao extends AbstractGenericDao {
 
     @Autowired
     private SessionFactory sessionFactory;
