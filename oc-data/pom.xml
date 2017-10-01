@@ -18,6 +18,11 @@
 
         <dependencies>
             <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>oc-util</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
             </dependency>

@@ -3,9 +3,12 @@ package com.oc.ocframework.data.repository;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.jdbc.core.RowMapper;
+
 public interface GenericDao {
     public <T> T findObjectById(Class<T> ObjectClass, Integer id);
     
     public List<Map<String, Object>> findListOfMapBySql(String sql, Object... args);
     public List<Map<String, Object>> findListOfMapBySql(String sql);
+    public <T> List<T> findListOfObjectBySql(String sql, RowMapper<T> rowMapper);
 }

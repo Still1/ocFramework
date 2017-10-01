@@ -12,10 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.oc.ocframework.core.spring.service.HomeService;
+import com.oc.ocframework.data.domain.easyui.TreeNode;
 /**
  *	Spring MVC 应用根目录Controller类
  */
@@ -40,9 +42,15 @@ public class RootController implements InitializingBean {
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home(HttpServletRequest request, Model model) {
 	    this.handlePageContext(request, model);
-	    List<Map<String, Object>> menus = this.homeService.getMenus();
+	    List<TreeNode> menus = this.homeService.getMenus();
 	    model.addAttribute("menus", menus);
 	    return "basic/" + ocFrameworkUI + "/home/home";
+	}
+	
+	@RequestMapping(value = "/home/{module}", method = RequestMethod.GET)
+	public String homeContent(@PathVariable String module, Model model) {
+	    model.addAttribute("module", module);
+	    return module + "/" + ocFrameworkUI + "/" +  module;
 	}
 	
 	private void handlePageContext(HttpServletRequest request, Model model) {
@@ -54,16 +62,16 @@ public class RootController implements InitializingBean {
         model.addAttribute("pageContext", pageContext);
 	}
 
-    public Properties getOcFrameworkSetting() {
-        return ocFrameworkSetting;
-    }
-
-    public void setOcFrameworkSetting(Properties ocFrameworkSetting) {
-        this.ocFrameworkSetting = ocFrameworkSetting;
-    }
-
     @Override
     public void afterPropertiesSet() throws Exception {
         ocFrameworkUI = ocFrameworkSetting.getProperty("ocFramework.UI");
+    }
+    
+    public void setOcFrameworkSetting(Properties ocFrameworkSetting) {
+        this.ocFrameworkSetting = ocFrameworkSetting;
+    }
+    
+    public void setHomeService(HomeService homeService) {
+        this.homeService = homeService;
     }
 }
