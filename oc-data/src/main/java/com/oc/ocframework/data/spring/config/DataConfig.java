@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @ComponentScan(basePackages = "com.oc", 
 includeFilters = {
-    @Filter(type = FilterType.ASPECTJ, pattern = "com.oc..repository..*"),
+    @Filter(type = FilterType.ASPECTJ, pattern = "com..repository..*"),
 })
 @EnableTransactionManagement
 public class DataConfig {
