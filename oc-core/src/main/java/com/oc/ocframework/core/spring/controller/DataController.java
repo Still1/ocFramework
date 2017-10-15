@@ -1,22 +1,33 @@
 package com.oc.ocframework.core.spring.controller;
 
 import java.io.IOException;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.dom4j.DocumentException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.oc.ocframework.util.component.sql.SQLUtil;
+import com.oc.ocframework.data.service.DataService;
+
+import net.sf.jsqlparser.JSQLParserException;
 
 @Controller
 public class DataController {
+    
+    @Autowired
+    private DataService dataService;
+    
     @RequestMapping(value = "/data/{fileName}/{sqlName}", method = RequestMethod.GET)
     @ResponseBody
-    public String getData(@PathVariable String fileName, @PathVariable String sqlName) throws IOException, DocumentException {
-        SQLUtil.getStatement(fileName, sqlName);
-        return "ss";
+    public String getDataGridData(@PathVariable String fileName, @PathVariable String sqlName, HttpServletRequest request) throws IOException, DocumentException, JSQLParserException {
+        Map<String, String[]> parameterMap = request.getParameterMap();
+        String resultSetJSON = this.dataService.getDataGridResultSetJSON(fileName, sqlName, parameterMap);
+        return resultSetJSON;
     }
 }

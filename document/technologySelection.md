@@ -63,7 +63,7 @@
 |验证码生成|JCaptcha|
 |中文转拼音|pinyin4j|
 |日志|Log4j|
-|JSON处理|Jackson|
+|JSON处理|Gson|
 |XML处理|Dom4j|
 |缓存|Ehcache|
 |作业调度|Quartz|
