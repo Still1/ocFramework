@@ -10,5 +10,6 @@ public interface GenericDao {
     
     public List<Map<String, Object>> findListOfMapBySql(String sql, Object... args);
     public List<Map<String, Object>> findListOfMapBySql(String sql);
+    public String findJsonBySql(String sql);
     public <T> List<T> findListOfObjectBySql(String sql, RowMapper<T> rowMapper);
 }

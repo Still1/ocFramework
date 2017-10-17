@@ -27,7 +27,7 @@ public class DataController {
     @ResponseBody
     public String getDataGridData(@PathVariable String fileName, @PathVariable String sqlName, HttpServletRequest request) throws IOException, DocumentException, JSQLParserException {
         Map<String, String[]> parameterMap = request.getParameterMap();
-        String resultSetJSON = this.dataService.getDataGridResultSetJSON(fileName, sqlName, parameterMap);
-        return resultSetJSON;
+        String resultSetJson = this.dataService.getDataGridResultSetJson(fileName, sqlName, parameterMap);
+        return resultSetJson;
     }
 }

@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.RowMapper;
 
+import com.oc.ocframework.util.component.json.JsonUtil;
+
 public abstract class AbstractGenericDao implements GenericDao {
 
     @Autowired
@@ -25,5 +27,12 @@ public abstract class AbstractGenericDao implements GenericDao {
     @Override
     public <T> List<T> findListOfObjectBySql(String sql, RowMapper<T> rowMapper) {
         return jdbcOperations.query(sql, rowMapper);
+    }
+
+    @Override
+    public String findJsonBySql(String sql) {
+        List<Map<String, Object>> resultList = this.findListOfMapBySql(sql);
+        String json = JsonUtil.toJson(resultList);
+        return json;
     }
 }

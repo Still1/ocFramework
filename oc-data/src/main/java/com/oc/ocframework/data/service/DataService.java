@@ -8,5 +8,5 @@ import org.dom4j.DocumentException;
 import net.sf.jsqlparser.JSQLParserException;
 
 public interface DataService {
-    public String getDataGridResultSetJSON(String fileName, String sqlName, Map<String, String[]> parameterMap) throws IOException, DocumentException, JSQLParserException;
+    public String getDataGridResultSetJson(String fileName, String sqlName, Map<String, String[]> parameterMap) throws IOException, DocumentException, JSQLParserException;
 }

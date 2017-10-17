@@ -13,16 +13,20 @@ import org.dom4j.io.SAXReader;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.oc.ocframework.util.component.json.JsonUtil;
+import com.oc.ocframework.util.component.sql.entity.WhereCondition;
 
 import net.sf.jsqlparser.JSQLParserException;
+import net.sf.jsqlparser.expression.Expression;
+import net.sf.jsqlparser.expression.LongValue;
 import net.sf.jsqlparser.expression.Parenthesis;
 import net.sf.jsqlparser.expression.StringValue;
 import net.sf.jsqlparser.expression.operators.conditional.AndExpression;
 import net.sf.jsqlparser.expression.operators.relational.EqualsTo;
 import net.sf.jsqlparser.parser.CCJSqlParserUtil;
 import net.sf.jsqlparser.schema.Column;
+import net.sf.jsqlparser.statement.select.Limit;
 import net.sf.jsqlparser.statement.select.PlainSelect;
 import net.sf.jsqlparser.statement.select.Select;
 
@@ -75,16 +79,21 @@ public class SqlUtil {
         
         if(parameterMap.containsKey("cond")) {
             //XXX 需要异常处理，数组内容可能不符合预期
-            String whereConditionJSON = parameterMap.get("cond")[0];
-            handleSqlWhereCondition(plainSelect, whereConditionJSON);
+            //XXX 存在安全问题，应该对where条件限制范围，并校验
+            String whereConditionJson = parameterMap.get("cond")[0];
+            handleSqlWhereCondition(plainSelect, whereConditionJson);
         }
-        System.out.println(plainSelect.toString());
+        if(parameterMap.containsKey("page") && parameterMap.containsKey("rows")) {
+            //XXX 需要异常处理
+            String page = parameterMap.get("page")[0];
+            String rows = parameterMap.get("rows")[0];
+            handleSqlLimitCondition(plainSelect, page, rows);
+        }
         return plainSelect.toString();
     }
     
-    private static PlainSelect handleSqlWhereCondition(PlainSelect plainSelect, String whereConditionJSON) {
-        Gson gson = new Gson();
-        List<WhereCondition> conditionList = gson.fromJson(whereConditionJSON, new TypeToken<List<WhereCondition>>() {}.getType());
+    private static PlainSelect handleSqlWhereCondition(PlainSelect plainSelect, String whereConditionJson) {
+        List<WhereCondition> conditionList = JsonUtil.fromJson(whereConditionJson, new TypeToken<List<WhereCondition>>() {}.getType());
         Iterator<WhereCondition> iterator = conditionList.iterator();
         while(iterator.hasNext()) {
             WhereCondition whereCondition = iterator.next();
@@ -95,14 +104,25 @@ public class SqlUtil {
                     whereExpression.setLeftExpression(new Column(whereCondition.getName()));
                     whereExpression.setRightExpression(new StringValue(whereCondition.getValue()));
                     Parenthesis parenthesis = new Parenthesis(whereExpression);
-                    if(plainSelect.getWhere() == null) {
+                    Expression oldWhere = plainSelect.getWhere();
+                    if(oldWhere == null) {
                         plainSelect.setWhere(parenthesis);
                     } else {
-                        plainSelect.setWhere(new AndExpression(plainSelect.getWhere(), parenthesis));
+                        plainSelect.setWhere(new AndExpression(oldWhere, parenthesis));
                     }
                     break;
             }
         }
+        return plainSelect;
+    }
+    
+    //XXX 只支持了limit子句分页
+    private static PlainSelect handleSqlLimitCondition(PlainSelect plainSelect, String page, String rows) {
+        Limit limit = new Limit();
+        limit.setRowCount(new LongValue(rows));
+        Long offset = (Long.parseLong(page) - 1) * Long.parseLong(rows);
+        limit.setOffset(new LongValue(offset));
+        plainSelect.setLimit(limit);
         return plainSelect;
     }
     

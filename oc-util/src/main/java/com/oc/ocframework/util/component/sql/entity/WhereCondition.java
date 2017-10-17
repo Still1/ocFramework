@@ -1,4 +1,4 @@
-package com.oc.ocframework.util.component.sql;
+package com.oc.ocframework.util.component.sql.entity;
 
 public class WhereCondition {
     private String name;
