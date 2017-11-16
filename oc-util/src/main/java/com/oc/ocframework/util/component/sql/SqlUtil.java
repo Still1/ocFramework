@@ -2,6 +2,7 @@ package com.oc.ocframework.util.component.sql;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -27,6 +28,7 @@ import net.sf.jsqlparser.expression.operators.relational.EqualsTo;
 import net.sf.jsqlparser.parser.CCJSqlParserUtil;
 import net.sf.jsqlparser.schema.Column;
 import net.sf.jsqlparser.statement.select.Limit;
+import net.sf.jsqlparser.statement.select.OrderByElement;
 import net.sf.jsqlparser.statement.select.PlainSelect;
 import net.sf.jsqlparser.statement.select.Select;
 
@@ -89,6 +91,12 @@ public class SqlUtil {
             String rows = parameterMap.get("rows")[0];
             handleSqlLimitCondition(plainSelect, page, rows);
         }
+        if(parameterMap.containsKey("sort") && parameterMap.containsKey("order")) {
+            //XXX 需要异常处理
+            String sort = parameterMap.get("sort")[0];
+            String order = parameterMap.get("order")[0];
+            handleSqlOrderCondition(plainSelect, sort, order);
+        }
         return plainSelect.toString();
     }
     
@@ -126,4 +134,16 @@ public class SqlUtil {
         return plainSelect;
     }
     
+    //XXX 只支持一个排序条件
+    private static PlainSelect handleSqlOrderCondition(PlainSelect plainSelect, String sort, String order) {
+        OrderByElement orderByElement = new OrderByElement();
+        orderByElement.setExpression(new Column(sort));
+        if(order.equals("desc")) {
+            orderByElement.setAsc(false);
+        }
+        List<OrderByElement> orderByElements = new ArrayList<OrderByElement>();
+        orderByElements.add(orderByElement);
+        plainSelect.setOrderByElements(orderByElements);
+        return plainSelect;
+    }
 }
