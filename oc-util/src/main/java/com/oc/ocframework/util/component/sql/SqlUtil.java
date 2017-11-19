@@ -19,12 +19,12 @@ import com.oc.ocframework.util.component.json.JsonUtil;
 import com.oc.ocframework.util.component.sql.entity.WhereCondition;
 
 import net.sf.jsqlparser.JSQLParserException;
+import net.sf.jsqlparser.expression.BinaryExpression;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.LongValue;
 import net.sf.jsqlparser.expression.Parenthesis;
 import net.sf.jsqlparser.expression.StringValue;
 import net.sf.jsqlparser.expression.operators.conditional.AndExpression;
-import net.sf.jsqlparser.expression.operators.relational.EqualsTo;
 import net.sf.jsqlparser.parser.CCJSqlParserUtil;
 import net.sf.jsqlparser.schema.Column;
 import net.sf.jsqlparser.statement.select.Limit;
@@ -47,6 +47,8 @@ public class SqlUtil {
         if(parameterMap != null && !parameterMap.isEmpty()) {
             statement = handleSqlCondition(statement, parameterMap);
         }
+        ///FIXME
+        System.out.println(statement);
         return statement;
     }
     
@@ -106,19 +108,33 @@ public class SqlUtil {
         while(iterator.hasNext()) {
             WhereCondition whereCondition = iterator.next();
             String op = whereCondition.getOp();
+            Expression expression = null;
             switch(op) {
                 case "eq" :
-                    EqualsTo whereExpression = new EqualsTo();
-                    whereExpression.setLeftExpression(new Column(whereCondition.getName()));
-                    whereExpression.setRightExpression(new StringValue(whereCondition.getValue()));
-                    Parenthesis parenthesis = new Parenthesis(whereExpression);
-                    Expression oldWhere = plainSelect.getWhere();
-                    if(oldWhere == null) {
-                        plainSelect.setWhere(parenthesis);
-                    } else {
-                        plainSelect.setWhere(new AndExpression(oldWhere, parenthesis));
+                case "like" :
+                    BinaryExpression binaryExpression = SqlExpressionFactory.getBinaryExpression(op);
+                    binaryExpression.setLeftExpression(new Column(whereCondition.getName()));
+                    String whereConditionValue = whereCondition.getValue();
+                    if(op.contains("like")) {
+                        //TODO 支持%like和like%
+                        StringBuilder stringBuilder = new StringBuilder(whereConditionValue);
+                        stringBuilder.insert(0, "%");
+                        stringBuilder.append("%");
+                        whereConditionValue = stringBuilder.toString();
                     }
+                    binaryExpression.setRightExpression(new StringValue(whereConditionValue));
+                    expression = binaryExpression;
                     break;
+                default :
+                    //TODO 异常处理
+                    break;
+            }
+            Parenthesis parenthesis = new Parenthesis(expression);
+            Expression oldWhere = plainSelect.getWhere();
+            if(oldWhere == null) {
+                plainSelect.setWhere(parenthesis);
+            } else {
+                plainSelect.setWhere(new AndExpression(oldWhere, parenthesis));
             }
         }
         return plainSelect;
