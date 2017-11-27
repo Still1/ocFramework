@@ -21,6 +21,7 @@ import com.oc.ocframework.util.component.sql.entity.WhereCondition;
 import net.sf.jsqlparser.JSQLParserException;
 import net.sf.jsqlparser.expression.BinaryExpression;
 import net.sf.jsqlparser.expression.Expression;
+import net.sf.jsqlparser.expression.Function;
 import net.sf.jsqlparser.expression.LongValue;
 import net.sf.jsqlparser.expression.Parenthesis;
 import net.sf.jsqlparser.expression.StringValue;
@@ -31,6 +32,8 @@ import net.sf.jsqlparser.statement.select.Limit;
 import net.sf.jsqlparser.statement.select.OrderByElement;
 import net.sf.jsqlparser.statement.select.PlainSelect;
 import net.sf.jsqlparser.statement.select.Select;
+import net.sf.jsqlparser.statement.select.SelectExpressionItem;
+import net.sf.jsqlparser.statement.select.SelectItem;
 
 public class SqlUtil {
     
@@ -50,6 +53,29 @@ public class SqlUtil {
         ///FIXME
         System.out.println(statement);
         return statement;
+    }
+    
+    /**
+     * 获取SQL语句对数组，第一条语句为数据查询语句，第二条语句为总数查询语句
+     * 
+     * @param fileName SQL配置文件名
+     * @param sqlName SQL名称
+     * @param parameterMap 查询参数
+     * 
+     * @return SQL语句对数组
+     */
+    public static String[] getSqlStatementDual(String fileName, String sqlName, Map<String, String[]> parameterMap) throws IOException, DocumentException, JSQLParserException {
+        String dataStatement = getSqlStatement(fileName, sqlName, parameterMap);
+        String totalStatement = convertToCountTotalSql(dataStatement);
+        String[] statementDual = new String[2];
+        statementDual[0] = dataStatement;
+        statementDual[1] = totalStatement;
+        return statementDual;
+    }
+    
+    //XXX 有没有更优雅的写法？
+    public static String[] getSqlStatementDual(String fileName, String sqlName) throws IOException, DocumentException, JSQLParserException {
+        return getSqlStatementDual(fileName, sqlName, null);
     }
     
     private static Document getSqlFileDocument(String fileName) throws IOException, DocumentException {
@@ -161,5 +187,21 @@ public class SqlUtil {
         orderByElements.add(orderByElement);
         plainSelect.setOrderByElements(orderByElements);
         return plainSelect;
+    }
+    
+    private static String convertToCountTotalSql(String statement) throws JSQLParserException {
+        Select select = (Select)CCJSqlParserUtil.parse(statement);
+        PlainSelect plainSelect = (PlainSelect)select.getSelectBody();
+        plainSelect.setLimit(null);
+        
+        Function function = new Function();
+        function.setName("count");
+        function.setAllColumns(true);
+        SelectExpressionItem selectExpressionItem = new SelectExpressionItem();
+        selectExpressionItem.setExpression(function);
+        List<SelectItem> selectItemList = new ArrayList<SelectItem>();
+        selectItemList.add(selectExpressionItem);
+        plainSelect.setSelectItems(selectItemList);
+        return plainSelect.toString();
     }
 }

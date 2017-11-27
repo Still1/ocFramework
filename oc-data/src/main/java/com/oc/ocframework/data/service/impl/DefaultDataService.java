@@ -21,14 +21,8 @@ public class DefaultDataService implements DataService {
     
     @Override
     public String getDataGridResultSetJson(String fileName, String sqlName, Map<String, String[]> parameterMap) throws IOException, DocumentException, JSQLParserException{
-        String statement = null;
-        if(parameterMap != null && !parameterMap.isEmpty()) {
-            statement = SqlUtil.getSqlStatement(fileName, sqlName, parameterMap);
-        } else {
-            statement = SqlUtil.getSqlStatement(fileName, sqlName);
-        }
-        
-        String json = this.genericDao.findJsonBySql(statement);
+        String[] statementDual = SqlUtil.getSqlStatementDual(fileName, sqlName, parameterMap);
+        String json = this.genericDao.findJsonBySql(statementDual[0], statementDual[1]);
         return json;
     }
 }

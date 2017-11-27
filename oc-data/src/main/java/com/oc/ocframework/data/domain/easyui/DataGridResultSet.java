@@ -4,13 +4,13 @@ import java.util.List;
 import java.util.Map;
 
 public class DataGridResultSet {
-    private Integer total;
+    private Long total;
     private List<Map<String, Object>> rows;
     
-    public Integer getTotal() {
+    public Long getTotal() {
         return total;
     }
-    public void setTotal(Integer total) {
+    public void setTotal(Long total) {
         this.total = total;
     }
     public List<Map<String, Object>> getRows() {
