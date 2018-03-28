@@ -25,4 +25,9 @@ public class DefaultDataService implements DataService {
         String json = this.genericDao.findJsonBySql(statementDual[0], statementDual[1]);
         return json;
     }
+
+    @Override
+    public void saveOrUpdate(Object obj) {
+        this.genericDao.saveOrUpdate(obj);
+    }
 }

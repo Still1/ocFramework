@@ -9,4 +9,5 @@ import net.sf.jsqlparser.JSQLParserException;
 
 public interface DataService {
     public String getDataGridResultSetJson(String fileName, String sqlName, Map<String, String[]> parameterMap) throws IOException, DocumentException, JSQLParserException;
+    public void saveOrUpdate(Object obj);
 }

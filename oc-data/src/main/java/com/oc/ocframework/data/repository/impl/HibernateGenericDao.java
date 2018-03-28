@@ -25,4 +25,10 @@ public class HibernateGenericDao extends AbstractGenericDao {
         T object = session.get(objectClass, id);
         return object;
     }
+
+    @Override
+    public void saveOrUpdate(Object obj) {
+        Session session = this.getCurrentSession();
+        session.saveOrUpdate(obj);
+    }
 }

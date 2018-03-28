@@ -27,6 +27,14 @@
 	    		conditionArray.push(conditionObject);
 	    	});
 	    	return JSON.stringify(conditionArray);
+		},
+	
+		showMessage : function(title, msg, showType) {
+            $.messager.show({
+                title : title,
+                msg : msg,
+                showType : showType
+            });
 		}
 	};
 })();
