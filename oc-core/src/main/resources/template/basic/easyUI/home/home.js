@@ -11,12 +11,13 @@
 	});
 	
 	ocFramework.commonMethod = {
-		getConditionUrl : function() {
+		//XXX 条件表单必须有一层div
+		getConditionUrl : function(conditionFormId) {
 			var conditionArray = new Array();
-	    	$('#conditionDiv div>input').each(function(index, element) {
+	    	$(conditionFormId + '>div>input').each(function(index, element) {
 	    		var conditionObject = new Object();
 	    		var elementObject = $(element);
-	    		if(elementObject.hasClass('easyui-textbox')) {
+	    		if(elementObject.hasClass('textbox-f')) {
 	    			conditionObject.value = elementObject.textbox('getValue');
 	    			if(conditionObject.value == undefined || conditionObject.value == '') {
 	    				return true;
@@ -27,6 +28,19 @@
 	    		conditionArray.push(conditionObject);
 	    	});
 	    	return JSON.stringify(conditionArray);
+		},
+		
+		getFormDataJson : function(formId) {
+			var formObject = new Object();
+			$(formId + '>div>:input').each(function(index, element) {
+				var elementObject = $(element);
+	    		if(elementObject.hasClass('textbox-f')) {
+	    			formObject[elementObject.attr('textboxname')] = elementObject.textbox('getValue');
+	    		} else {
+	    			formObject[elementObject.attr("name")] = elementObject.val();
+	    		}
+	    	});
+	    	return JSON.stringify(formObject);
 		},
 	
 		showMessage : function(title, msg, showType) {

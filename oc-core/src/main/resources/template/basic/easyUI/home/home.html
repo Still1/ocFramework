@@ -26,6 +26,11 @@
     	window.ocFramework = new Object();
     	window.ocFramework.pageContext = /*[[${pageContext}]]*/ undefined;
     	window.ocFramework.menus = /*[[${menus}]]*/ undefined;
+    	window.ocFramework.csrfObject = {
+    		parameterName : /*[[${_csrf.parameterName}]]*/ undefined,
+    		headerName : /*[[${_csrf.headerName}]]*/ undefined,
+    		token : /*[[${_csrf.token}]]*/ undefined
+    	}
     </script>
     <script type="text/javascript" src="home.js" th:src="@{/resource/template/basic/easyUI/home/home.js}"></script>
 </body>

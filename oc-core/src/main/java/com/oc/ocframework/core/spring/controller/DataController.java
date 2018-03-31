@@ -30,4 +30,10 @@ public class DataController {
         String resultSetJson = this.dataService.getDataGridResultSetJson(fileName, sqlName, parameterMap);
         return resultSetJson;
     }
+    
+    @RequestMapping(value = "/data", method = RequestMethod.POST)
+    @ResponseBody
+    public void saveData(String dataJson) {
+        System.out.println(dataJson);
+    }
 }
