@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.oc.ocframework.data.domain.dto.GenericDto;
 import com.oc.ocframework.data.service.DataService;
 
 import net.sf.jsqlparser.JSQLParserException;
@@ -33,7 +34,7 @@ public class DataController {
     
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
-    public void saveData(String dataJson) {
-        System.out.println(dataJson);
+    public void saveData(GenericDto genericDto) {
+        System.out.println("ss");
     }
 }

@@ -7,7 +7,6 @@
 |MVC框架|Spring MVC|
 |数据持久|Hibernate|
 |模板引擎|Thymeleaf|
-|AJAX框架|DWR|
 
 ## 前端开发
 |用途|技术|
@@ -45,7 +44,8 @@
 ## 数据库
 |用途|技术|
 |-|-|
-|数据库|MySQL|
+|关系型数据库|MySQL|
+|缓存|Redis|
 
 ## 中间件
 |用途|技术|
@@ -65,7 +65,6 @@
 |日志|Log4j|
 |JSON处理|Gson|
 |XML处理|Dom4j|
-|缓存|Ehcache|
 |作业调度|Quartz|
 
 ## 代码质量
