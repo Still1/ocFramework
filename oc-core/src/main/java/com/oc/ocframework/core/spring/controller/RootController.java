@@ -34,6 +34,7 @@ public class RootController implements InitializingBean {
     
     private String ocFrameworkUI;
     
+    //FIXME 可能因为这里的配置导致登录成功依然跳转到登录页面，路径/应该转为重定向
     @RequestMapping(value = {"/signIn", "/"}, method = RequestMethod.GET)
 	public String signIn() {
         return "basic/" + ocFrameworkUI + "/signIn/signIn";

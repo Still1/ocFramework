@@ -10,8 +10,10 @@
 		});
 	});
 	
+	//公共方法
 	ocFramework.commonMethod = {
 		//XXX 条件表单必须有一层div
+		//XXX 对非文本框是否支持？
 		getConditionUrl : function(conditionFormId) {
 			var conditionArray = new Array();
 	    	$(conditionFormId + '>div>input').each(function(index, element) {
@@ -34,7 +36,9 @@
 			var formObject = new Object();
 			$(formId + '>div>:input').each(function(index, element) {
 				var elementObject = $(element);
-	    		if(elementObject.hasClass('textbox-f')) {
+	    		if(elementObject.hasClass('combo-f') && elementObject.combo('options').multiple) {
+	    			formObject[elementObject.attr('textboxname')] = elementObject.combo('getValues');
+	    		} else if(elementObject.hasClass('textbox-f')) {
 	    			formObject[elementObject.attr('textboxname')] = elementObject.textbox('getValue');
 	    		} else {
 	    			formObject[elementObject.attr("name")] = elementObject.val();
@@ -49,6 +53,26 @@
                 msg : msg,
                 showType : showType
             });
+		},
+		
+		saveData : function(dataJson, className, foreignKey) {
+	    	var csrfHeader = new Object();
+	    	csrfHeader[ocFramework.csrfObject.headerName] = ocFramework.csrfObject.token;
+	    	$.ajax({
+	    		method : 'POST',
+	    		url : 'data',
+	    		headers : csrfHeader,
+	    		traditional : true,
+	    		data : {
+	    			dataJson : dataJson,
+	    			className : className,
+	    			foreignKey : foreignKey
+	    		}
+	    	}).done(function() {
+	    		ocFramework.commonMethod.showMessage('操作提示', '保存成功', 'fade');
+	    	}).fail(function() {
+	    		ocFramework.commonMethod.showMessage('操作提示', '保存失败', 'fade');
+	    	});
 		}
 	};
 })();
