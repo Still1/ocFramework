@@ -15,7 +15,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
 import com.google.gson.reflect.TypeToken;
-import com.oc.ocframework.util.component.json.JsonUtil;
+import com.oc.ocframework.util.component.json.OcFrameworkJsonUtil;
 import com.oc.ocframework.util.component.sql.entity.WhereCondition;
 
 import net.sf.jsqlparser.JSQLParserException;
@@ -35,7 +35,7 @@ import net.sf.jsqlparser.statement.select.Select;
 import net.sf.jsqlparser.statement.select.SelectExpressionItem;
 import net.sf.jsqlparser.statement.select.SelectItem;
 
-public class SqlUtil {
+public class OcFrameworkSqlUtil {
     
     private static Map<String, Document> documentCache = new HashMap<>();
     
@@ -50,8 +50,6 @@ public class SqlUtil {
         if(parameterMap != null && !parameterMap.isEmpty()) {
             statement = handleSqlCondition(statement, parameterMap);
         }
-        ///FIXME
-        System.out.println(statement);
         return statement;
     }
     
@@ -84,7 +82,7 @@ public class SqlUtil {
             document = documentCache.get(fileName);
         } else {
             //XXX 此处应该可以不同步
-            synchronized(SqlUtil.class) {
+            synchronized(OcFrameworkSqlUtil.class) {
                 if(documentCache.containsKey(fileName)) {
                     document = documentCache.get(fileName);
                 } else {
@@ -129,7 +127,7 @@ public class SqlUtil {
     }
     
     private static PlainSelect handleSqlWhereCondition(PlainSelect plainSelect, String whereConditionJson) {
-        List<WhereCondition> conditionList = JsonUtil.fromJson(whereConditionJson, new TypeToken<List<WhereCondition>>() {}.getType());
+        List<WhereCondition> conditionList = OcFrameworkJsonUtil.fromJson(whereConditionJson, new TypeToken<List<WhereCondition>>() {}.getType());
         Iterator<WhereCondition> iterator = conditionList.iterator();
         while(iterator.hasNext()) {
             WhereCondition whereCondition = iterator.next();

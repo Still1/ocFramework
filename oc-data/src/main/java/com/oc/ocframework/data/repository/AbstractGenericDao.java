@@ -10,7 +10,7 @@ import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.RowMapper;
 
 import com.oc.ocframework.data.domain.easyui.DataGridResultSet;
-import com.oc.ocframework.util.component.json.JsonUtil;
+import com.oc.ocframework.util.component.json.OcFrameworkJsonUtil;
 
 public abstract class AbstractGenericDao implements GenericDao {
 
@@ -49,7 +49,7 @@ public abstract class AbstractGenericDao implements GenericDao {
     @Override
     public String findJsonBySql(String sql) {
         List<Map<String, Object>> resultList = this.findListOfMapBySql(sql);
-        String json = JsonUtil.toJson(resultList);
+        String json = OcFrameworkJsonUtil.toJson(resultList);
         return json;
     }
 
@@ -62,7 +62,7 @@ public abstract class AbstractGenericDao implements GenericDao {
         dataGridResultSet.setRows(resultList);
         dataGridResultSet.setTotal(total);
         
-        String json = JsonUtil.toJson(dataGridResultSet);
+        String json = OcFrameworkJsonUtil.toJson(dataGridResultSet);
         return json;
     }
 }

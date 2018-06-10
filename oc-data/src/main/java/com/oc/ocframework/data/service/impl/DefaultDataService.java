@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.oc.ocframework.data.repository.GenericDao;
 import com.oc.ocframework.data.service.DataService;
-import com.oc.ocframework.util.component.sql.SqlUtil;
+import com.oc.ocframework.util.component.sql.OcFrameworkSqlUtil;
 
 import net.sf.jsqlparser.JSQLParserException;
 
@@ -21,7 +21,7 @@ public class DefaultDataService implements DataService {
     
     @Override
     public String getDataGridResultSetJson(String fileName, String sqlName, Map<String, String[]> parameterMap) throws IOException, DocumentException, JSQLParserException{
-        String[] statementDual = SqlUtil.getSqlStatementDual(fileName, sqlName, parameterMap);
+        String[] statementDual = OcFrameworkSqlUtil.getSqlStatementDual(fileName, sqlName, parameterMap);
         String json = this.genericDao.findJsonBySql(statementDual[0], statementDual[1]);
         return json;
     }

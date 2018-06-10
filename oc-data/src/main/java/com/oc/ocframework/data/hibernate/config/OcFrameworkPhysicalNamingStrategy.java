@@ -1,13 +1,17 @@
 package com.oc.ocframework.data.hibernate.config;
 
-import org.apache.commons.lang3.StringUtils;
 import org.hibernate.boot.model.naming.Identifier;
 import org.hibernate.boot.model.naming.PhysicalNamingStrategy;
 import org.hibernate.engine.jdbc.env.spi.JdbcEnvironment;
 
+import com.oc.ocframework.util.component.string.OcFrameworkStringUtil;
+
 
 public class OcFrameworkPhysicalNamingStrategy implements PhysicalNamingStrategy {
 
+	public static final String PHYSICAL_TABLE_NAME_PREFIX = "t";
+	public static final String PHYSICAL_TABLE_NAME_SEPARATOR = "_";
+	
 	@Override
 	public Identifier toPhysicalCatalogName(Identifier arg0, JdbcEnvironment arg1) {
 		return arg0;
@@ -15,8 +19,9 @@ public class OcFrameworkPhysicalNamingStrategy implements PhysicalNamingStrategy
 
 	@Override
 	public Identifier toPhysicalColumnName(Identifier arg0, JdbcEnvironment arg1) {
-		// TODO Auto-generated method stub
-		return null;
+		String name = arg0.getText();
+		String physicalColumnName = OcFrameworkStringUtil.camelCaseToSeparator(name, PHYSICAL_TABLE_NAME_SEPARATOR); 
+		return arg1.getIdentifierHelper().toIdentifier(physicalColumnName);
 	}
 
 	@Override
@@ -31,10 +36,9 @@ public class OcFrameworkPhysicalNamingStrategy implements PhysicalNamingStrategy
 
 	@Override
 	public Identifier toPhysicalTableName(Identifier arg0, JdbcEnvironment arg1) {
-		// TODO Auto-generated method stub
 		String name = arg0.getText();
-		StringUtils.splitByCharacterTypeCamelCase(name);
-		return null;
+		String physicalTableName = OcFrameworkStringUtil.camelCaseToSeparator(name, PHYSICAL_TABLE_NAME_SEPARATOR, PHYSICAL_TABLE_NAME_PREFIX); 
+		return arg1.getIdentifierHelper().toIdentifier(physicalTableName);
 	}
 
 }
