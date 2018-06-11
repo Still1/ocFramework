@@ -41,7 +41,7 @@ public class DataConfig {
         LocalSessionFactoryBean localSessionFactoryBean =  new LocalSessionFactoryBean();
         localSessionFactoryBean.setDataSource(dataSource);
         //XXX 配置化
-        localSessionFactoryBean.setPackagesToScan(new String[] {"com.oc.ocframework.data.domain"});
+        localSessionFactoryBean.setPackagesToScan(new String[] {"com.oc.**.domain"});
         Properties properties = new Properties();
         properties.setProperty("dialect", "org.hibernate.dialect.MySQLDialect");
         properties.setProperty("physical_naming_strategy", "com.oc.ocframework.data.hibernate.config.OcFrameworkPhysicalNamingStrategy");

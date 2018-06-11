@@ -14,6 +14,7 @@
 	ocFramework.commonMethod = {
 		//XXX 条件表单必须有一层div
 		//XXX 对非文本框是否支持？
+		//XXX 考虑创建conditionObject对象的专属类
 		getConditionUrl : function(conditionFormId) {
 			var conditionArray = new Array();
 	    	$(conditionFormId + '>div>input').each(function(index, element) {
@@ -37,11 +38,20 @@
 			$(formId + '>div>:input').each(function(index, element) {
 				var elementObject = $(element);
 	    		if(elementObject.hasClass('combo-f') && elementObject.combo('options').multiple) {
-	    			formObject[elementObject.attr('textboxname')] = elementObject.combo('getValues');
+	    			var values = elementObject.combo('getValues');
+	    			if(values.length > 0) {
+	    				formObject[elementObject.attr('textboxname')] = values;
+	    			}
 	    		} else if(elementObject.hasClass('textbox-f')) {
-	    			formObject[elementObject.attr('textboxname')] = elementObject.textbox('getValue');
+	    			var value = elementObject.textbox('getValue');
+	    			if(value != "") {
+	    				formObject[elementObject.attr('textboxname')] = value;
+	    			}
 	    		} else {
-	    			formObject[elementObject.attr("name")] = elementObject.val();
+	    			var value = elementObject.val();
+	    			if(value != "") {
+	    				formObject[elementObject.attr("name")] = value;
+	    			}
 	    		}
 	    	});
 	    	return JSON.stringify(formObject);
