@@ -3,10 +3,11 @@ package com.oc.ocframework.data.hibernate.config;
 import org.hibernate.boot.model.naming.Identifier;
 import org.hibernate.boot.model.naming.PhysicalNamingStrategy;
 import org.hibernate.engine.jdbc.env.spi.JdbcEnvironment;
+import org.springframework.stereotype.Component;
 
 import com.oc.ocframework.util.component.string.OcFrameworkStringUtil;
 
-
+@Component
 public class OcFrameworkPhysicalNamingStrategy implements PhysicalNamingStrategy {
 
 	public static final String PHYSICAL_TABLE_NAME_PREFIX = "t";
