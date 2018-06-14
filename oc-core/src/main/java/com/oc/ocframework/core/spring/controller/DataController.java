@@ -42,6 +42,7 @@ public class DataController {
     	Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
     	try {
 			Object dataObject = gson.fromJson(genericDto.getDataJson(), Class.forName(genericDto.getClassName()));
+			//TODO 处理关联实体
 			dataService.saveOrUpdate(dataObject);
 		} catch (JsonSyntaxException e) {
 			// TODO Auto-generated catch block
