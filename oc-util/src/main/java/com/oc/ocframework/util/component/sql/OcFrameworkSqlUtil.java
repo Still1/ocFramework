@@ -76,12 +76,13 @@ public class OcFrameworkSqlUtil {
         return getSqlStatementDual(fileName, sqlName, null);
     }
     
+    //XXX XML配置改为JSON配置
     private static Document getSqlFileDocument(String fileName) throws IOException, DocumentException {
         Document document = null;
         if(documentCache.containsKey(fileName)) {
             document = documentCache.get(fileName);
         } else {
-            //XXX 此处应该可以不同步
+            //XXX 此处应该可以不同步,同步可能影响效率，不同步会出现多个线程同时put同一份的可能
             synchronized(OcFrameworkSqlUtil.class) {
                 if(documentCache.containsKey(fileName)) {
                     document = documentCache.get(fileName);
