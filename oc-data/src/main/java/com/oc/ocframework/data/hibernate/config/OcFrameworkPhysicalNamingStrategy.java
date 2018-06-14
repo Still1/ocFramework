@@ -11,7 +11,7 @@ import com.oc.ocframework.util.component.string.OcFrameworkStringUtil;
 public class OcFrameworkPhysicalNamingStrategy implements PhysicalNamingStrategy {
 
 	public static final String PHYSICAL_TABLE_NAME_PREFIX = "t";
-	public static final String PHYSICAL_TABLE_NAME_SEPARATOR = "_";
+	public static final char PHYSICAL_TABLE_NAME_SEPARATOR = '_';
 	
 	@Override
 	public Identifier toPhysicalCatalogName(Identifier arg0, JdbcEnvironment arg1) {

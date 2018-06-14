@@ -4,7 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 
 public class OcFrameworkStringUtil {
 	
-	public static String camelCaseToSeparator(String str, String separator) {
+	public static String camelCaseToSeparator(String str, char separator) {
 		String[] stringSplitArray = StringUtils.splitByCharacterTypeCamelCase(str);
 		StringBuilder stringBuilder = new StringBuilder();
 		for(String stringSplitFragment : stringSplitArray) {
@@ -15,7 +15,12 @@ public class OcFrameworkStringUtil {
 		return stringBuilder.toString();
 	}
 	
-	public static String camelCaseToSeparator(String str, String separator, String prefix) {
+	public static String camelCaseToSeparator(String str, char separator, String prefix) {
 		return prefix + separator + camelCaseToSeparator(str, separator);
+	}
+	
+	public static String separatorToRemovePrefix(String str, String prefix) {
+		int prefixLength = prefix.length();
+		return str.substring(prefixLength + 1);
 	}
 }

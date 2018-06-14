@@ -6,7 +6,7 @@ import javax.sql.DataSource;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.hibernate.SessionFactory;
-import org.hibernate.boot.model.naming.PhysicalNamingStrategy;
+import org.hibernate.boot.model.naming.ImplicitNamingStrategy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScan.Filter;
@@ -38,12 +38,12 @@ public class DataConfig {
     }
     
     @Bean
-    public LocalSessionFactoryBean sessionFactory(DataSource dataSource, PhysicalNamingStrategy physicalNamingStrategy) {
+    public LocalSessionFactoryBean sessionFactory(DataSource dataSource, ImplicitNamingStrategy implicitNamingStrategy) {
         LocalSessionFactoryBean localSessionFactoryBean =  new LocalSessionFactoryBean();
         localSessionFactoryBean.setDataSource(dataSource);
         //XXX 配置化
         localSessionFactoryBean.setPackagesToScan(new String[] {"com.oc.**.domain"});
-        localSessionFactoryBean.setPhysicalNamingStrategy(physicalNamingStrategy);
+        localSessionFactoryBean.setImplicitNamingStrategy(implicitNamingStrategy);
         Properties properties = new Properties();
         properties.setProperty("hibernate.show_sql", "true");
         properties.setProperty("hibernate.format_sql", "true");
