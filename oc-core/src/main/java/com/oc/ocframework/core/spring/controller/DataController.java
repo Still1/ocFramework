@@ -13,10 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.gson.FieldNamingPolicy;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonSyntaxException;
 import com.oc.ocframework.data.domain.dto.GenericDto;
 import com.oc.ocframework.data.service.DataService;
 
@@ -38,18 +34,10 @@ public class DataController {
     
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
-    public void saveData(GenericDto genericDto) {
-    	Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
-    	try {
-			Object dataObject = gson.fromJson(genericDto.getDataJson(), Class.forName(genericDto.getClassName()));
-			//TODO 处理关联实体
-			dataService.saveOrUpdate(dataObject);
-		} catch (JsonSyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    public void saveData(GenericDto genericDto) throws ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+    	//TODO 处理异常
+    	String dataJson = genericDto.getDataJson();
+    	Class<?> dataClass = Class.forName(genericDto.getClassName());
+    	this.dataService.saveOrUpdate(dataJson, dataClass);
     }
 }

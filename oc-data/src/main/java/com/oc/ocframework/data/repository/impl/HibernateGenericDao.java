@@ -20,13 +20,20 @@ public class HibernateGenericDao extends AbstractGenericDao {
     }
     
     @Override
-    public <T> T findObjectById(Class<T> objectClass, Integer id) {
+    public <T> T getObjectById(Class<T> objectClass, Integer id) {
         Session session = this.getCurrentSession();
         T object = session.get(objectClass, id);
         return object;
     }
-
+    
     @Override
+	public <T> T loadObjectById(Class<T> objectClass, Integer id) {
+        Session session = this.getCurrentSession();
+        T object = session.load(objectClass, id);
+        return object;
+	}
+
+	@Override
     public void saveOrUpdate(Object obj) {
         Session session = this.getCurrentSession();
         session.saveOrUpdate(obj);
