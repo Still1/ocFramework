@@ -56,23 +56,25 @@ public class DefaultDataService implements DataService {
 
 	@Override
 	public <T> void saveOrUpdate(String dataJson, Class<T> dataClass) throws IllegalArgumentException, IllegalAccessException {
-    	T dataObject = OcFrameworkJsonUtil.fromJson(dataJson, dataClass, FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES);
+    	T dataObject = OcFrameworkJsonUtil.fromJsonExceptForeignKey(dataJson, dataClass);
     	JsonObject jsonObject = new JsonParser().parse(dataJson).getAsJsonObject();
-    	Field[] fields = dataClass.getFields();
+    	Field[] fields = dataClass.getDeclaredFields();
     	for(Field field : fields) {
     		if(field.getAnnotation(ManyToMany.class) != null) {
     			List<Object> list = new ArrayList<> ();
-    			jsonObject.getAsJsonArray().forEach(new Consumer<JsonElement>() {
+    			String fieldName = field.getName();
+    			jsonObject.getAsJsonArray(fieldName).forEach(new Consumer<JsonElement>() {
 					@Override
 					public void accept(JsonElement element) {
 						Integer id = element.getAsInt();
 						Type genericType = field.getGenericType();
-						ParameterizedType pt = (ParameterizedType) genericType;
-						Class<?> genericClass = (Class<?>) pt.getRawType();
-						Object object = DefaultDataService.this.loadObjectById(genericClass, id);
+						ParameterizedType pt = (ParameterizedType)genericType;
+						Type[] actualTypeArguments = pt.getActualTypeArguments();
+						Object object = DefaultDataService.this.loadObjectById((Class<?>)actualTypeArguments[0], id);
 						list.add(object);
 					}
     			});
+    			field.setAccessible(true);
     			field.set(dataObject, list);
     		}
     	}

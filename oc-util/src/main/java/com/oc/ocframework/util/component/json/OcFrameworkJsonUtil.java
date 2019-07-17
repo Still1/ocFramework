@@ -5,6 +5,7 @@ import java.lang.reflect.Type;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.oc.ocframework.util.component.json.gson.config.ForeignKeyExclusionStrategy;
 
 public class OcFrameworkJsonUtil {
     public static <T> T fromJson(String json, Class<T> classOfT) {
@@ -28,6 +29,14 @@ public class OcFrameworkJsonUtil {
     	Gson gson = gsonBuilder.create();
         T result = gson.fromJson(json, classOfT);
         return result;
+    }
+    
+    public static <T> T fromJsonExceptForeignKey(String json, Class<T> classOfT) {
+    	Gson gson = new GsonBuilder()
+    			.setExclusionStrategies(new ForeignKeyExclusionStrategy())
+    			.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
+    	T result = gson.fromJson(json, classOfT);
+    	return result;
     }
     
     public static String toJson(Object src) {
