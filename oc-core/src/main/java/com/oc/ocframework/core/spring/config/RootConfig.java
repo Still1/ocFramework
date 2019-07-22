@@ -15,9 +15,8 @@ import com.oc.ocframework.data.spring.config.DataConfig;
 @Import(DataConfig.class)
 @ComponentScan(basePackages = "com.oc", 
 	includeFilters = {
-		@Filter(type = FilterType.ASPECTJ, pattern = "com.oc..spring.service..*"),
-		@Filter(type = FilterType.ASPECTJ, pattern = "com.oc..spring.repository..*"),
-		@Filter(type = FilterType.ASPECTJ, pattern = "com.oc..spring.component..*")
+		@Filter(type = FilterType.ASPECTJ, pattern = "com.oc..service..*"),
+		@Filter(type = FilterType.ASPECTJ, pattern = "com.oc..component..*")
 	})
 public class RootConfig {
 }

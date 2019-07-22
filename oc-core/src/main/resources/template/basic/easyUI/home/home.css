@@ -20,3 +20,16 @@
 	padding-left:15px;
 	height:25px;
 }
+
+.oc-form div {
+	margin : 10px;
+}
+
+.oc-data-form label {
+	width : 60px;
+	display : inline-block;
+}
+
+.oc-hidden {
+	display : none;
+}
