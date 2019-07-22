@@ -10,7 +10,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import junit.framework.TestCase;
+import com.oc.ocframework.core.spring.service.HomeService;
 /**
  *	Spring MVC 应用根目录Controller测试类
  */
@@ -26,6 +26,8 @@ public class RootControllerTest {
 		Properties properties = Mockito.mock(Properties.class);
 		Mockito.when(properties.getProperty("ocFramework.UI")).thenReturn(RootControllerTest.mockOcFrameworkUI);
 		rootController.setOcFrameworkSetting(properties);
+		HomeService homeService = Mockito.mock(HomeService.class);
+		rootController.setHomeService(homeService);
 		rootController.afterPropertiesSet();
 	}
 	
@@ -39,11 +41,5 @@ public class RootControllerTest {
 	public void testHome() throws Exception {
 		MockMvc mockMvc = MockMvcBuilders.standaloneSetup(rootController).build();
 		mockMvc.perform(MockMvcRequestBuilders.get("/home")).andExpect(MockMvcResultMatchers.view().name("basic/"  + RootControllerTest.mockOcFrameworkUI + "/home/home"));
-	}
-	
-	@Test
-	public void testGetOcFrameworkSetting() {
-	    Properties ocFrameworkSetting = rootController.getOcFrameworkSetting();
-	    TestCase.assertNotNull(ocFrameworkSetting);
 	}
 }

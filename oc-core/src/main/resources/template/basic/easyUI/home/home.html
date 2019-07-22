@@ -10,45 +10,28 @@
 <link rel="stylesheet" href="home.css" th:href="@{/resource/template/basic/easyUI/home/home.css}">
 </head>
 
-<body class="easyui-layout">
+<body id="layoutBody" class="easyui-layout">
     <div data-options="region:'north'" class="north-layout">
         <img alt="Home" src="../../../../common/image/logo.png" th:src="@{/resource/common/image/logo.png}" class="logo-image">
     </div>
     <div data-options="region:'west'" class="west-layout">
-        <ul id="menuTree" class="easyui-tree">
-            <li><span>小书库</span></li>
-            <li><span>小物件</span></li>
-            <li><span>小未来</span></li>
-            <li><span>小玩乐</span></li>
-            <li><span>小留言</span></li>
-            <li><span>小生活</span></li>
-            <li><span>小影库</span></li>
-            <li><span>小技能</span></li>
-            <li><span>小用户</span></li>
-        </ul>
+        <ul id="menuTree" class="easyui-tree"></ul>
     </div>
-    <div data-options="region:'center'" class="center-layout">
-        <table class="easyui-datagrid" style="height:50%" data-options="fitColumns:true,pagination:true">
-            <thead>
-                <tr>
-                    <th data-options="field:'code',width:100">Code</th>
-                    <th data-options="field:'name',width:100">Name</th>
-                    <th data-options="field:'price',width:100">Price</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>001</td><td>name1</td><td>2323</td>
-                </tr>
-                <tr>
-                    <td>002</td><td>name2</td><td>4612</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    <div data-options="region:'center'" class="center-layout"></div>
     
     <script type="text/javascript" src="../../common/js/jquery/jquery-3.1.1.js" th:src="@{/resource/common/js/jquery/jquery-3.1.1.js}"></script>
     <script type="text/javascript" src="../../common/js/easyUI/jquery.easyui.min.js" th:src="@{/resource/common/js/easyUI/jquery.easyui.min.js}"></script>
     <script type="text/javascript" src="../../common/js/easyUI/easyui-lang-zh_CN.js" th:src="@{/resource/common/js/easyUI/easyui-lang-zh_CN.js}"></script>
+    <script type="text/javascript" th:inline="javascript">
+    	window.ocFramework = new Object();
+    	window.ocFramework.pageContext = /*[[${pageContext}]]*/ undefined;
+    	window.ocFramework.menus = /*[[${menus}]]*/ undefined;
+    	window.ocFramework.csrfObject = {
+    		parameterName : /*[[${_csrf.parameterName}]]*/ undefined,
+    		headerName : /*[[${_csrf.headerName}]]*/ undefined,
+    		token : /*[[${_csrf.token}]]*/ undefined
+    	}
+    </script>
+    <script type="text/javascript" src="home.js" th:src="@{/resource/template/basic/easyUI/home/home.js}"></script>
 </body>
 </html>

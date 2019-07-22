@@ -13,7 +13,7 @@
     <div style="margin: 20px 0;"></div>
     <div class="center-panel">
         <div class="easyui-panel" title="Sign In" style="width: 100%; max-width: 400px; padding: 30px 60px;">
-            <form id="ff" method="post">
+            <form id="signInForm" method="post" th:action="@{/signIn}">
                 <div style="margin-bottom: 20px">
                     <input class="easyui-textbox" name="username"
                         style="width: 100%"
@@ -26,12 +26,13 @@
                 </div>
             </form>
             <div style="text-align: center; padding: 5px 0">
-                <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()" style="width: 80px">Sign In</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" onclick="signInPage.submitForm()" style="width:80px">Sign In</a>
             </div>
         </div>
     </div>
     <script type="text/javascript" src="../../common/js/jquery/jquery-3.1.1.js" th:src="@{/resource/common/js/jquery/jquery-3.1.1.js}"></script>
     <script type="text/javascript" src="../../common/js/easyUI/jquery.easyui.min.js" th:src="@{/resource/common/js/easyUI/jquery.easyui.min.js}"></script>
     <script type="text/javascript" src="../../common/js/easyUI/easyui-lang-zh_CN.js" th:src="@{/resource/common/js/easyUI/easyui-lang-zh_CN.js}"></script>
+    <script type="text/javascript" src="signIn.js" th:src="@{/resource/template/basic/easyUI/signIn/signIn.js}"></script>
 </body>
 </html>

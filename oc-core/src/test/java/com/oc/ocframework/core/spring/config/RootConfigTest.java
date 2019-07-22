@@ -30,16 +30,15 @@ public class RootConfigTest {
 		
 		Filter[] includeFilters = componentScan.includeFilters();
 		TestCase.assertNotNull(includeFilters);
-		TestCase.assertTrue(includeFilters.length == 3);
+		TestCase.assertTrue(includeFilters.length == 2);
 		List<String> patternList = new ArrayList<String>() {
 			private static final long serialVersionUID = 7010548592111707686L;
 			{
-				this.add("com.oc..spring.service..*");
-				this.add("com.oc..spring.repository..*");
-				this.add("com.oc..spring.component..*");
+				this.add("com.oc..service..*");
+				this.add("com.oc..component..*");
 			}
 		};
-		for(int i = 0; i < 3; i++) {
+		for(int i = 0; i < 2; i++) {
 			TestCase.assertEquals(FilterType.ASPECTJ, includeFilters[i].type());
 			TestCase.assertEquals(patternList.get(i), includeFilters[i].pattern()[0]);
 		}
