@@ -65,7 +65,7 @@
             });
 		},
 		
-		saveData : function(dataJson, className, foreignKey) {
+		saveData : function(dataJson, className) {
 	    	var csrfHeader = new Object();
 	    	csrfHeader[ocFramework.csrfObject.headerName] = ocFramework.csrfObject.token;
 	    	$.ajax({
@@ -75,8 +75,7 @@
 	    		traditional : true,
 	    		data : {
 	    			dataJson : dataJson,
-	    			className : className,
-	    			foreignKey : foreignKey
+	    			className : className
 	    		}
 	    	}).done(function() {
 	    		ocFramework.commonMethod.showMessage('操作提示', '保存成功', 'fade');

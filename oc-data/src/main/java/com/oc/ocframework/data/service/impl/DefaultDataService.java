@@ -10,12 +10,14 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.dom4j.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.google.gson.FieldNamingPolicy;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -23,6 +25,7 @@ import com.oc.ocframework.data.repository.GenericDao;
 import com.oc.ocframework.data.service.DataService;
 import com.oc.ocframework.util.component.json.OcFrameworkJsonUtil;
 import com.oc.ocframework.util.component.sql.OcFrameworkSqlUtil;
+import com.oc.ocframework.util.component.string.OcFrameworkStringUtil;
 
 import net.sf.jsqlparser.JSQLParserException;
 
@@ -56,28 +59,47 @@ public class DefaultDataService implements DataService {
 
 	@Override
 	public <T> void saveOrUpdate(String dataJson, Class<T> dataClass) throws IllegalArgumentException, IllegalAccessException {
+		T dataObject = this.deserialize(dataJson, dataClass);
+    	this.genericDao.saveOrUpdate(dataObject);
+	}
+	
+	private <T> T deserialize(String dataJson, Class<T> dataClass) throws IllegalArgumentException, IllegalAccessException {
     	T dataObject = OcFrameworkJsonUtil.fromJsonExceptForeignKey(dataJson, dataClass);
     	JsonObject jsonObject = new JsonParser().parse(dataJson).getAsJsonObject();
     	Field[] fields = dataClass.getDeclaredFields();
+    	//XXX 是否需要进一步抽象
     	for(Field field : fields) {
-    		if(field.getAnnotation(ManyToMany.class) != null) {
-    			List<Object> list = new ArrayList<> ();
-    			String fieldName = field.getName();
-    			jsonObject.getAsJsonArray(fieldName).forEach(new Consumer<JsonElement>() {
-					@Override
-					public void accept(JsonElement element) {
-						Integer id = element.getAsInt();
-						Type genericType = field.getGenericType();
-						ParameterizedType pt = (ParameterizedType)genericType;
-						Type[] actualTypeArguments = pt.getActualTypeArguments();
-						Object object = DefaultDataService.this.loadObjectById((Class<?>)actualTypeArguments[0], id);
-						list.add(object);
-					}
-    			});
-    			field.setAccessible(true);
-    			field.set(dataObject, list);
+			String fieldName = field.getName();
+			String separatorFieldName = OcFrameworkStringUtil.camelCaseToSeparator(fieldName, '_');
+    		if(field.getAnnotation(ManyToMany.class) != null || field.getAnnotation(OneToMany.class) != null) {
+    			JsonArray foreignKeyIdArray = jsonObject.getAsJsonArray(separatorFieldName);
+    			if(foreignKeyIdArray != null && !foreignKeyIdArray.isJsonNull() && foreignKeyIdArray.isJsonArray() && foreignKeyIdArray.size() > 0) {
+    				List<Object> list = new ArrayList<> ();
+    				foreignKeyIdArray.forEach(new Consumer<JsonElement>() {
+    					@Override
+    					public void accept(JsonElement element) {
+    						Integer id = element.getAsInt();
+    						Type genericType = field.getGenericType();
+    						ParameterizedType pt = (ParameterizedType)genericType;
+    						Type[] actualTypeArguments = pt.getActualTypeArguments();
+    						Object object = DefaultDataService.this.loadObjectById((Class<?>)actualTypeArguments[0], id);
+    						//XXX 限定了是List
+    						list.add(object);
+    					}
+    				});
+    				//XXX Could it be more elegant?
+    				field.setAccessible(true);
+    				field.set(dataObject, list);
+    			}
+    		} else if(field.getAnnotation(ManyToOne.class) != null) {
+    			Integer foreignKeyId = jsonObject.getAsJsonPrimitive(separatorFieldName).getAsInt();
+    			Class<?> foreignKeyClass = field.getType();
+    			Object object = DefaultDataService.this.loadObjectById(foreignKeyClass, foreignKeyId);
+    			//XXX Could it be more elegant?
+				field.setAccessible(true);
+				field.set(dataObject, object);
     		}
     	}
-    	this.genericDao.saveOrUpdate(dataObject);
+    	return dataObject;
 	}
 }
