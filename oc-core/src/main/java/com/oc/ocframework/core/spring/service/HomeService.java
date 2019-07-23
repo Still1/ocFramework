@@ -17,7 +17,8 @@ public class HomeService {
     private GenericDao genericDao;
     
     public List<TreeNode> getMenus() {
-        String sql = "select id, menu_name, page_path from t_menu";
+        //XXX 语句配置化
+    	String sql = "select id, menu_name, page_path from t_menu";
         return this.genericDao.findListOfObjectBySql(sql, (ResultSet rs, int rowNum) -> {
             TreeNode treeNode = new TreeNode();
             treeNode.setId(rs.getInt(1));

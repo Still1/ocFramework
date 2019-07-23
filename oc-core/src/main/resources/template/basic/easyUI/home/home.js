@@ -39,18 +39,18 @@
 				var elementObject = $(element);
 	    		if(elementObject.hasClass('combo-f') && elementObject.combo('options').multiple) {
 	    			var values = elementObject.combo('getValues');
-	    			if(values.length > 0) {
+	    			if(values.length > 0 && values[0] != '') {
 	    				formObject[elementObject.attr('textboxname')] = values;
 	    			}
 	    		} else if(elementObject.hasClass('textbox-f')) {
 	    			var value = elementObject.textbox('getValue');
-	    			if(value != "") {
+	    			if(value != '') {
 	    				formObject[elementObject.attr('textboxname')] = value;
 	    			}
 	    		} else {
 	    			var value = elementObject.val();
-	    			if(value != "") {
-	    				formObject[elementObject.attr("name")] = value;
+	    			if(value != '') {
+	    				formObject[elementObject.attr('name')] = value;
 	    			}
 	    		}
 	    	});
@@ -79,7 +79,6 @@
 	    		}
 	    	}).done(function() {
 	    		ocFramework.commonMethod.showMessage('操作提示', '保存成功', 'fade');
-	    		
 	    	}).fail(function() {
 	    		ocFramework.commonMethod.showMessage('操作提示', '保存失败', 'fade');
 	    	});
