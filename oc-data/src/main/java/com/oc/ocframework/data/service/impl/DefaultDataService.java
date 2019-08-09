@@ -102,4 +102,14 @@ public class DefaultDataService implements DataService {
     	}
     	return dataObject;
 	}
+
+	@Override
+	public <T> void delete(String dataJson, Class<T> dataClass) {
+		JsonArray jsonArray = new JsonParser().parse(dataJson).getAsJsonArray();
+		for(JsonElement jsonElement : jsonArray) {
+			Integer id = jsonElement.getAsInt();
+			T object = this.genericDao.loadObjectById(dataClass, id);
+			this.genericDao.delete(object);
+		}
+	}
 }

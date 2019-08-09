@@ -38,6 +38,7 @@
 			$(formId + '>div>:input').each(function(index, element) {
 				var elementObject = $(element);
 	    		if(elementObject.hasClass('combo-f') && elementObject.combo('options').multiple) {
+	    			debugger;
 	    			var values = elementObject.combo('getValues');
 	    			if(values.length > 0 && values[0] != '') {
 	    				formObject[elementObject.attr('textboxname')] = values;
@@ -65,8 +66,10 @@
             });
 		},
 		
+		//TODO 回调函数
 		saveData : function(dataJson, className) {
-	    	var csrfHeader = new Object();
+			debugger;
+			var csrfHeader = new Object();
 	    	csrfHeader[ocFramework.csrfObject.headerName] = ocFramework.csrfObject.token;
 	    	$.ajax({
 	    		method : 'POST',
@@ -85,12 +88,13 @@
 		},
 		
 		//XXX 抽象公有 saveData与deleteData
+		//TODO 回调函数
 		deleteData : function(idArrayJson, className) {
-	    	var csrfHeader = new Object();
+			var csrfHeader = new Object();
 	    	csrfHeader[ocFramework.csrfObject.headerName] = ocFramework.csrfObject.token;
 	    	$.ajax({
-	    		method : 'DELETE',
-	    		url : 'data',
+	    		method : 'POST',
+	    		url : 'ddata',
 	    		headers : csrfHeader,
 	    		traditional : true,
 	    		data : {
