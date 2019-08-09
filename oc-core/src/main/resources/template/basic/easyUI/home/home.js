@@ -82,6 +82,26 @@
 	    	}).fail(function() {
 	    		ocFramework.commonMethod.showMessage('操作提示', '保存失败', 'fade');
 	    	});
+		},
+		
+		//XXX 抽象公有 saveData与deleteData
+		deleteData : function(idArrayJson, className) {
+	    	var csrfHeader = new Object();
+	    	csrfHeader[ocFramework.csrfObject.headerName] = ocFramework.csrfObject.token;
+	    	$.ajax({
+	    		method : 'DELETE',
+	    		url : 'data',
+	    		headers : csrfHeader,
+	    		traditional : true,
+	    		data : {
+	    			dataJson : idArrayJson,
+	    			className : className
+	    		}
+	    	}).done(function() {
+	    		ocFramework.commonMethod.showMessage('操作提示', '删除成功', 'fade');
+	    	}).fail(function() {
+	    		ocFramework.commonMethod.showMessage('操作提示', '删除失败', 'fade');
+	    	});
 		}
 	};
 })();
