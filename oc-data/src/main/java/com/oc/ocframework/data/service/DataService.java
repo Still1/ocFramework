@@ -13,4 +13,5 @@ public interface DataService {
     public <T> void saveOrUpdate(String dataJson, Class<T> dataClass) throws IllegalArgumentException, IllegalAccessException;
     public <T> T getObjectById(Class<T> objectClass, Integer id);
     public <T> T loadObjectById(Class<T> objectClass, Integer id);
+    public <T> void delete(String dataJson, Class<T> dataClass);
 }

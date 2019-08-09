@@ -40,4 +40,14 @@ public class DataController {
     	Class<?> dataClass = Class.forName(genericDto.getClassName());
     	this.dataService.saveOrUpdate(dataJson, dataClass);
     }
+    
+    // XXX RESTful
+    @RequestMapping(value = "/ddata", method = RequestMethod.POST)
+    @ResponseBody
+    public void deleteData(GenericDto genericDto) throws IllegalArgumentException, IllegalAccessException, ClassNotFoundException {
+    	//TODO 处理异常
+    	String dataJson = genericDto.getDataJson();
+    	Class<?> dataClass = Class.forName(genericDto.getClassName());
+    	this.dataService.delete(dataJson, dataClass);
+    }
 }

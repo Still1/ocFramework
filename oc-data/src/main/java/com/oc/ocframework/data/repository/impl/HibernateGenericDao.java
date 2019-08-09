@@ -38,4 +38,10 @@ public class HibernateGenericDao extends AbstractGenericDao {
         Session session = this.getCurrentSession();
         session.saveOrUpdate(obj);
     }
+
+	@Override
+	public void delete(Object obj) {
+        Session session = this.getCurrentSession();
+        session.delete(obj);
+	}
 }

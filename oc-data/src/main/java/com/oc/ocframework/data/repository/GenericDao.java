@@ -15,4 +15,5 @@ public interface GenericDao {
     public String findJsonBySql(String sql, String countTotalSql);
     public <T> List<T> findListOfObjectBySql(String sql, RowMapper<T> rowMapper);
     public void saveOrUpdate(Object obj);
+    public void delete(Object obj);
 }
