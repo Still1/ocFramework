@@ -96,14 +96,6 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                 </plugin>
                 <plugin>
-                    <groupId>org.eclipse.jetty</groupId>
-                    <artifactId>jetty-maven-plugin</artifactId>
-                    <version>9.4.6.v20170531</version>
-                    <configuration>
-                        <scanIntervalSeconds>1</scanIntervalSeconds>
-                    </configuration>
-                </plugin>
-                <plugin>
                     <artifactId>maven-project-info-reports-plugin</artifactId>
                 </plugin>
             </plugins>

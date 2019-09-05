@@ -6,9 +6,9 @@ import com.oc.ocframework.core.spring.config.RootConfig;
 import com.oc.ocframework.core.spring.config.WebConfig;
 
 /**
- * Spring MVC DispatcerServlet配置类
+ * Spring MVC DispatcherServlet配置类
  */
-public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer{
+public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
 	/**
 	 * 配置Web应用的Spring应用上下文

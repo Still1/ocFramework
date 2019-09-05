@@ -12,6 +12,7 @@
         <module>oc-core</module>
         <module>oc-data</module>
         <module>oc-util</module>
+        <module>oc-ws</module>
     </modules>
     <dependencyManagement>
         <dependencies>
