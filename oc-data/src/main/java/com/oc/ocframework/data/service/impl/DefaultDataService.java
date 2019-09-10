@@ -1,22 +1,5 @@
 package com.oc.ocframework.data.service.impl;
 
-import java.io.IOException;
-import java.lang.reflect.Field;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.function.Consumer;
-
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-
-import org.dom4j.DocumentException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -26,8 +9,22 @@ import com.oc.ocframework.data.service.DataService;
 import com.oc.ocframework.util.component.json.OcFrameworkJsonUtil;
 import com.oc.ocframework.util.component.sql.OcFrameworkSqlUtil;
 import com.oc.ocframework.util.component.string.OcFrameworkStringUtil;
-
 import net.sf.jsqlparser.JSQLParserException;
+import org.dom4j.DocumentException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import java.io.IOException;
+import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Consumer;
 
 @Service
 public class DefaultDataService implements DataService {
@@ -41,8 +38,13 @@ public class DefaultDataService implements DataService {
         String json = this.genericDao.findJsonBySql(statementDual[0], statementDual[1]);
         return json;
     }
-    
-    @Override
+
+	@Override
+	public String getDataGridResultSetJson(String fileName, String sqlName) throws IOException, DocumentException, JSQLParserException {
+		return this.getDataGridResultSetJson(fileName, sqlName, null);
+	}
+
+	@Override
 	public <T> T getObjectById(Class<T> objectClass, Integer id) {
 		return this.genericDao.getObjectById(objectClass, id);
 	}

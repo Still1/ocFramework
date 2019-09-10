@@ -11,9 +11,4 @@
 
     <artifactId>oc-ws</artifactId>
     <packaging>jar</packaging>
-
-    <build>
-        <plugins>
-        </plugins>
-    </build>
 </project>
