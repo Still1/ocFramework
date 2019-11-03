@@ -1,9 +1,5 @@
 package com.oc.ocframework.data.spring.config;
 
-import java.util.Properties;
-
-import javax.sql.DataSource;
-
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.model.naming.ImplicitNamingStrategy;
@@ -19,6 +15,9 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.sql.DataSource;
+import java.util.Properties;
+
 @Configuration
 @ComponentScan(basePackages = "com.oc", 
 includeFilters = {
@@ -30,8 +29,8 @@ public class DataConfig {
     public DataSource dataSource() {
         BasicDataSource dataSource = new BasicDataSource();
         //XXX 配置化
-        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/oc");
+        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/oc?serverTimezone=GMT%2B8");
         dataSource.setUsername("root");
         dataSource.setPassword("mysqlroot");
         return dataSource;
