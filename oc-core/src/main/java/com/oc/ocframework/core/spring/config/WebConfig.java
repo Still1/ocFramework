@@ -1,8 +1,5 @@
 package com.oc.ocframework.core.spring.config;
 
-import java.nio.charset.Charset;
-import java.util.List;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScan.Filter;
@@ -20,6 +17,9 @@ import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ITemplateResolver;
+
+import java.nio.charset.Charset;
+import java.util.List;
 
 /**
  * Spring MVC dispatcherServlet Spring应用上下文配置类
@@ -81,6 +81,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		templateResolver.setPrefix("classpath:/template/");
 		templateResolver.setSuffix(".html");
 		templateResolver.setTemplateMode("HTML5");
+		templateResolver.setCharacterEncoding("UTF-8");
 		return templateResolver;
 	}
 
