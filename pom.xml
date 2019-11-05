@@ -7,7 +7,7 @@
     <groupId>com.oc.ocframework</groupId>
     <artifactId>oc-parent</artifactId>
     <packaging>pom</packaging>
-    <version>0.1-SNAPSHOT</version>
+    <version>0.0.1-SNAPSHOT</version>
     <modules>
         <module>oc-core</module>
         <module>oc-data</module>
@@ -72,4 +72,16 @@
             </plugins>
         </pluginManagement>
     </build>
+    <distributionManagement>
+        <repository>
+            <id>nexus-maven-releases</id>
+            <name>maven-releases</name>
+            <url>http://192.168.88.8:8081/repository/maven-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>nexus-maven-snapshots</id>
+            <name>maven-snapshots</name>
+            <url>http://192.168.88.8:8081/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>
